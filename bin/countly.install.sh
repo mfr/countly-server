@@ -64,7 +64,7 @@ cp $DIR/config/nginx.server.conf /etc/nginx/sites-enabled/default
 
 #add machine IP as API IP for countly dashboard
 serverip="`ifconfig | sed -n 's/.*inet addr:\([0-9.]\+\)\s.*/\1/p' | grep -v 127.0.0.1`"
-echo "countlyCommon.READ_API_URL = \"http://$serverip/o\"" > $DIR/../frontend/express/public/javascripts/countly/countly.config.js
+echo "countlyCommon.READ_API_URL = \"/o\"" > $DIR/../frontend/express/public/javascripts/countly/countly.config.js
 
 #kill existing supervisor process
 pkill -SIGTERM supervisord
