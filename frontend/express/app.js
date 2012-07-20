@@ -5,7 +5,7 @@ var express = require('express'),
 	crypto = require('crypto'),
 	fs = require('fs'),
 	im = require('imagemagick'),
-	nodemailer = require('nodemailer'),
+//	nodemailer = require('nodemailer'),
 	countlyConfig = require('./config'),
 	countlyDb = mongo.db(countlyConfig.mongodb.host + ':' + countlyConfig.mongodb.port + '/' + countlyConfig.mongodb.db + '?auto_reconnect'),
 	Db = require('mongodb').Db,
@@ -263,28 +263,28 @@ app.post('/forgot', function(req, res, next) {
 			
 				countlyDb.collection('password_reset').insert({"prid": prid, "user_id": member._id, "timestamp": timestamp}, {safe: true}, function(err, password_reset){
 					
-					var transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail"),
-						userName = (member.full_name).split(" "),
-						message = {
-							from: '"Countly"',
-							to: req.body.email,
-							subject: 'Countly Account - Password Reset',
-							html:'Hello '+ userName[0] +',<br/><br/>'+
-								 'You can reset your Countly account password by following '+
-								 '<a href="'+ req.headers.host +'/reset/'+ prid +'">this link</a>.<br/><br/>'+
-								 'If you did not request to reset your password ignore this email.<br/><br/>'+
-								 'Best,<br/>'+
-								 'A fellow Countly Admin'
-						};
-
-					transport.sendMail(message, function(error){
-						if(error){
-							console.log('Error sending /forgot email');
-							console.log(error.message);
-							return;
-						}
-						console.log('/forgot email sent successfully!');
-					});
+//					var transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail"),
+//						userName = (member.full_name).split(" "),
+//						message = {
+//							from: '"Countly"',
+//							to: req.body.email,
+//							subject: 'Countly Account - Password Reset',
+//							html:'Hello '+ userName[0] +',<br/><br/>'+
+//								 'You can reset your Countly account password by following '+
+//								 '<a href="'+ req.headers.host +'/reset/'+ prid +'">this link</a>.<br/><br/>'+
+//								 'If you did not request to reset your password ignore this email.<br/><br/>'+
+//								 'Best,<br/>'+
+//								 'A fellow Countly Admin'
+//						};
+//
+//					transport.sendMail(message, function(error){
+//						if(error){
+//							console.log('Error sending /forgot email');
+//							console.log(error.message);
+//							return;
+//						}
+//						console.log('/forgot email sent successfully!');
+//					});
 					
 					res.render('forgot', { "message": "You will receive an email shortly if the email you entered exists in the system", "csrf": req.session._csrf });
 				});
@@ -619,28 +619,28 @@ app.post('/users/create', function(req, res, next) {
 	function createUser() {
 		countlyDb.collection('members').insert(newUser, {safe: true}, function(err, user) {
 			if (user && !err) {
-				var transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail"),
-					userName = (req.body.full_name).split(" "),
-					message = {
-						from: '"Countly"',
-						to: req.body.email,
-						subject: 'Your Countly Account',
-						html:'Hello '+ userName[0] +',<br/><br/>'+
-							 'Your Countly account on <a href="'+ req.headers.host +'">'+ req.headers.host +'</a> is created with the following details;<br/><br/>'+
-							 'Username: '+ req.body.username +'<br/>'+
-							 'Password: '+ req.body.password +'<br/><br/>'+
-							 'Enjoy,<br/>'+
-							 'A fellow Countly Admin'
-					};
-
-				transport.sendMail(message, function(error){
-					if(error){
-						console.log('Error sending /users/create email');
-						console.log(error.message);
-						return;
-					}
-					console.log('/users/create email sent successfully!');
-				});
+//				var transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail"),
+//					userName = (req.body.full_name).split(" "),
+//					message = {
+//						from: '"Countly"',
+//						to: req.body.email,
+//						subject: 'Your Countly Account',
+//						html:'Hello '+ userName[0] +',<br/><br/>'+
+//							 'Your Countly account on <a href="'+ req.headers.host +'">'+ req.headers.host +'</a> is created with the following details;<br/><br/>'+
+//							 'Username: '+ req.body.username +'<br/>'+
+//							 'Password: '+ req.body.password +'<br/><br/>'+
+//							 'Enjoy,<br/>'+
+//							 'A fellow Countly Admin'
+//					};
+//
+//				transport.sendMail(message, function(error){
+//					if(error){
+//						console.log('Error sending /users/create email');
+//						console.log(error.message);
+//						return;
+//					}
+//					console.log('/users/create email sent successfully!');
+//				});
 			
 				res.send(user[0]["_id"]);
 			} else {
@@ -727,28 +727,28 @@ app.post('/users/update', function(req, res, next) {
 		if (user && !err) {
 			
 			if (sendNotificationEmail) {		
-				var transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail"),
-					userName = (req.body.full_name).split(" "),
-					message = {
-						from: '"Countly"',
-						to: req.body.email,
-						subject: 'Countly Account - Password Change',
-						html:'Hello '+ userName[0] +',<br/><br/>'+
-							 'Your password for your Countly account on <a href="'+ req.headers.host +'">'+ req.headers.host +'</a> has been changed. Below you can find your updated account details;<br/><br/>'+
-							 'Username: '+ req.body.username +'<br/>'+
-							 'Password: '+ req.body.password +'<br/><br/>'+
-							 'Best,<br/>'+
-							 'A fellow Countly Admin'
-					};
-
-				transport.sendMail(message, function(error){
-					if(error){
-						console.log('Error sending /users/update email');
-						console.log(error.message);
-						return;
-					}
-					console.log('/users/update email sent successfully!');
-				});
+//				var transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail"),
+//					userName = (req.body.full_name).split(" "),
+//					message = {
+//						from: '"Countly"',
+//						to: req.body.email,
+//						subject: 'Countly Account - Password Change',
+//						html:'Hello '+ userName[0] +',<br/><br/>'+
+//							 'Your password for your Countly account on <a href="'+ req.headers.host +'">'+ req.headers.host +'</a> has been changed. Below you can find your updated account details;<br/><br/>'+
+//							 'Username: '+ req.body.username +'<br/>'+
+//							 'Password: '+ req.body.password +'<br/><br/>'+
+//							 'Best,<br/>'+
+//							 'A fellow Countly Admin'
+//					};
+//
+//				transport.sendMail(message, function(error){
+//					if(error){
+//						console.log('Error sending /users/update email');
+//						console.log(error.message);
+//						return;
+//					}
+//					console.log('/users/update email sent successfully!');
+//				});
 			}
 			
 			res.send(true);

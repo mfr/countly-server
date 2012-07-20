@@ -23,7 +23,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apt-get update
 
 #install sendmail
-apt-get -y install sendmail
+#apt-get -y install sendmail
 
 #stop countly
 stop countly-supervisor

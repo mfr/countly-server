@@ -50,7 +50,7 @@ apt-get -y install supervisor || (echo "Failed to install supervisor." ; exit)
 apt-get -y install imagemagick
 
 #install sendmail
-apt-get -y install sendmail
+#apt-get -y install sendmail
 
 apt-get -y install build-essential || (echo "Failed to install build-essential." ; exit)
 
