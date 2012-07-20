@@ -44,7 +44,11 @@
 	}
 
 	countlyDeviceDetails.getPlatformBars = function() {	
-		return countlyCommon.extractBarData(_deviceDetailsDb, _deviceDetailsDb["os"], countlyDeviceDetails.clearDeviceDetailsObject);
+		var platformVersions = countlyCommon.extractBarData(_deviceDetailsDb, _deviceDetailsDb["os"], countlyDeviceDetails.clearDeviceDetailsObject);
+    for (var i = 0; i < platformVersions.length; i++) {
+      platformVersions[i].name = countlyDevice.getDeviceFullName(platformVersions[i].name);
+  		}
+    return platformVersions;
 	}
 	
 	countlyDeviceDetails.getResolutionBars = function() {	

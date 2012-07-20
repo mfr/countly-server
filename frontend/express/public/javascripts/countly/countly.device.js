@@ -121,6 +121,11 @@
 		
 		return obj;
 	}
+
+
+  countlyDevice.getDeviceFullName = function(shortName) {
+    return deviceFullName(shortName);
+  }
 	
 	function deviceFullName(shortName) {
 		var fullName = "";
